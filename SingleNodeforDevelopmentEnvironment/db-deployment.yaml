@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: db-deployment
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: db
+    template:
+        metadata:
+            labels:
+                app: db
+        spec:
+            containers:
+                - name: db
+                  image: gcr.io/cloudcomputing-451405/db-pod:latest
+                  ports:
+                      - containerPort: 8080
+                  env:
+                      - name: GOOGLE_APPLICATION_CREDENTIALS
+                        value: "/app/firebase-service-account-key.json"
+                  volumeMounts:
+                      - name: firebase-service-account-credentials
+                        mountPath: "/app/firebase-service-account-key.json"
+                        subPath: firebase-service-account-key.json
+            volumes:
+                - name: firebase-service-account-credentials
+                  secret:
+                      secretName: firebase-service-account-key
