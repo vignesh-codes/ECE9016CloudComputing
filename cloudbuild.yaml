@@ -32,3 +32,7 @@ steps:
 images:
   - 'gcr.io/cloudcomputing-451405/db-pod:latest'
   - 'gcr.io/cloudcomputing-451405/web-pod:latest'
+
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
+
